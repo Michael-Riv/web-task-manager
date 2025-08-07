@@ -1,0 +1,14 @@
+#generated node_modules files
+node_modules/
+#private variables
+.env
+#macOS system files
+.DS_Store
+#IDE generated files
+.vscode/
+.idea/
+#generated log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
