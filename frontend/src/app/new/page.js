@@ -58,9 +58,9 @@ export default function CreateNewTask(){
                             <input type='time' {...register('dueTime')} className="w-1/2 rounded px-3 py-2 text-black border border-fuchsia-700"/>
                         
                         </div>
-                        {errors.dueDate && <p className="text-red-400">errors.dueDate.message</p>}
-                        {errors.dueTime && <p className="text-red-400">errors.dueTime.message</p>}
-                        {errors.timePeriod && <p className="text-red-400">errors.timePeriod.message</p>}
+                        {errors.dueDate && <p className="text-red-400">{errors.dueDate.message}</p>}
+                        {errors.dueTime && <p className="text-red-400">{errors.dueTime.message}</p>}
+                        {errors.timePeriod && <p className="text-red-400">{errors.timePeriod.message}</p>}
                     </div>
 
                     <div>

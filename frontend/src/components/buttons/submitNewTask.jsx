@@ -7,6 +7,7 @@ export default function SubmitNewTaskButton(){
         //COMEBACK AFTER CREATING FETCH FUNCTIONS
 
         router.replace('/');
+        
     }
 
     return(
