@@ -1,7 +1,7 @@
 
-const BASE_URL=process.env.NEXTjs_API_URL;
+const BASE_URL=process.env.NEXT_PUBLIC_API_URL;
 
-export default async function api(path, options={}){
+export async function api(path, options={}){
     const res=await fetch(BASE_URL+path, {
         method: options.method || 'GET', //default to GET
         headers:{

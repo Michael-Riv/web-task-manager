@@ -2,6 +2,9 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from '@hookform/resolvers/zod';
 import { taskSchema } from "@/lib/validation/taskSchema";
+import { CombineDateTime } from "@/lib/utils/dateParser";
+import { useCreateTask } from "@/lib/query/task";
+import { useRouter } from "next/navigation";
 
 
 const defaultValues={
@@ -9,20 +12,36 @@ const defaultValues={
     urgency:'',
     dueDate:'',
     dueTime:'',
-    descriptoin:'',
+    description:'',
 
 
 }
 const urgValues=[1,2,3,4,5];
 
 export default function CreateNewTask(){
+    const router=useRouter();
+    const createTask=useCreateTask();
 
     const {register,handleSubmit,formState:{errors}, }=useForm({resolver:zodResolver(taskSchema),defaultValues});
     
+
     const onSubmit=(data)=>{
-        console.log('submitted',data);
-        //will call api here once implemented
-    }
+        const payload={
+            title:data.title,
+            description:data.description ||'',
+            completed: false,
+            urgency:data.urgency?Number(data.urgency):undefined,
+            dueDate: CombineDateTime(data.dueDate,data.dueTime),
+        };
+
+        createTask.mutate(payload,{
+            onSuccess:()=>router.replace('/'),
+            onError:(error)=> console.log(error),
+        });
+
+    };
+
+
     return(
 
         <div className="bg-white flex items-center justify-center h-screen">
@@ -68,11 +87,12 @@ export default function CreateNewTask(){
                         <textarea {...register('description')} className="w-full rounded px-3 py-2 text-black  border border-fuchsia-700" rows={3} placeholder="Description of Task"/>
                     </div>  
                     <div className="flex flex-row w-full">
-                        <button className="w-1/2 bg-white font-semibold rounded text-amber-700 hover:bg-blue-700 border  border-fuchsia-700">
+                        <button type='button' className="w-1/2 bg-white font-semibold rounded text-amber-700 hover:bg-blue-700 border  border-fuchsia-700" onClick={()=>router.replace('/')} >
                             Go Back
                         </button>
-                        <button type='submit' className="w-1/2 bg-white font-semibold rounded text-amber-700 hover:bg-blue-700 border border-fuchsia-700">
-                                Submit Task
+
+                        <button type='submit' className="w-1/2 bg-white font-semibold rounded text-amber-700 hover:bg-blue-700 border border-fuchsia-700" disabled={createTask.isPending}>
+                                {createTask.isPending? 'Submitting....':'Submit Task'}
                         </button>
                         
                     </div>
