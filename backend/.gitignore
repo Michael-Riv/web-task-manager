@@ -1,7 +1,7 @@
 #generated node_modules files
 node_modules/
 #private variables
-.env
+#.env
 #macOS system files
 .DS_Store
 #IDE generated files
