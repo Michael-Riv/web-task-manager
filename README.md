@@ -17,7 +17,7 @@ https://www.mongodb.com/docs/manual/installation/#std-label-tutorial-installatio
 
     Once installed its recommended to also install MongoDb Compass which is just a GUI for MongoDB, you can 
     install it at 
-https://www.mongodb.com/try/download/atlascli
+https://www.mongodb.com/try/download/compass
 
     
 
