@@ -9,40 +9,45 @@ About :
 
 Getting Started:
 
-    if you do not have MongoDB installed locally on your computer go to https://www.mongodb.com/docs/manual/installation/#std-label-tutorial-installation to install and make sure to install community editions
+    if you do not have MongoDB installed locally on your computer go to 
+    
+https://www.mongodb.com/docs/manual/installation/#std-label-tutorial-installation 
+    
+    to install and make sure to install community editions
 
     Once installed its recommended to also install MongoDb Compass which is just a GUI for MongoDB, you can 
-    install it at https://www.mongodb.com/try/download/atlascli
+    install it at 
+https://www.mongodb.com/try/download/atlascli
 
     
 
     clone repo:
 
-        git clone https://github.com/Michael-Riv/web-task-manager.git
+            git clone https://github.com/Michael-Riv/web-task-manager.git
 
     Install dependencies:
 
-        cd backend
+            cd backend
 
-        npm install
+            npm install
 
-        cd frontend
+            cd frontend
 
-        npm install
+            npm install
 
     Start backend:
 
-        cd backend
+            cd backend
 
-        npm start
+            npm start
 
         (runs at http://localhost:5050)
     
     Start frontend:
 
-        cd frontend
+            cd frontend
 
-        npm run dev
+            npm run dev
 
         (runs at http://localhost:3000)
 
