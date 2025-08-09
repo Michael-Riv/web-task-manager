@@ -53,13 +53,28 @@ export function useUpdateTask(){//for generall updating like title,urgency,due d
 }
 export function useDeleteTask(){
     const hold=useQueryClient();
+
+
     return useMutation({
         mutationFn:(id)=>deleteTask(id),
-        onSuccess:()=>{
-            hold.invalidateQueries({queryKey:keys.all});
+
+        onMutate:async(id)=>{
+            await hold.cancelQueries({queryKey:['tasks']});
+            hold.setQueriesData({queryKey:['tasks']},(old)=>{
+                if (!Array.isArray(old)){
+                    return old;
+                } 
+
+                return old.filter((t) => t._id !== id);
+            });
+
+        },
+        onSettled:()=>{
+            hold.invalidateQueries({queryKey:['tasks']})
         },
     }
 );
+
 }
 
 export function useToggleTask() {//for updating complete/incomplete
