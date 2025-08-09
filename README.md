@@ -9,11 +9,11 @@ About :
 
 Getting Started:
 
-    if you do not have MongoDB installed locally on your computer go to 
+    If you do not have MongoDB installed locally on your computer go to 
     
 https://www.mongodb.com/docs/manual/installation/#std-label-tutorial-installation 
     
-    to install and make sure to install community editions
+    to install and make sure to install community editions.
 
     Once installed its recommended to also install MongoDb Compass which is just a GUI for MongoDB, you can 
     install it at 
@@ -21,7 +21,7 @@ https://www.mongodb.com/try/download/atlascli
 
     
 
-    clone repo:
+    Clone repo:
 
             git clone https://github.com/Michael-Riv/web-task-manager.git
 
@@ -59,14 +59,14 @@ https://www.mongodb.com/try/download/atlascli
 
         -Search for task by title
         -Filter for task by either "due date", "complete","incomplete","Importance"
-        -toggle Complete or Incomplete for each task
-        -delete a task
+        -Toggle Complete or Incomplete for each task
+        -Delete a task
         -Error handling
-        -input validation
+        -Input validation
 
     Issues:
 
-        -currently when adding tasks that exceed page it makes it scrollable which is fine
+        -Currently when adding tasks that exceed page it makes it scrollable which is fine
         but in a way that enlarges the page vertically. It would be better if it is scrollable within its
         own "box" and not having to have a clunky UI .
 
