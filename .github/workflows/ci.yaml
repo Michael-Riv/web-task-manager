@@ -1,0 +1,85 @@
+#optional, just a display name for the github actions ui. if omitted will instead use filename
+name: CI pipeline
+
+#"on:" is the trigger which triggers when this workflow is activated.workflow refers to what this file.
+#"on:" is required otherwise how else would you know when to trigger this workflow
+#some triggers that are commonly used are "push","pull_request","workflow_dispatch"(manual trigger),"schedule"(cron jobs)
+#the below trigger block means "on pushes to branch main trigger this workflow". you can have multiple triggers
+#NOTE: if "branches" is not specified then it runs on every branch 
+on:
+  push:
+    branches:
+    - main
+#a job in the workfow,a workflow can have many jobs,each job runs in its own machine. jobs can depend on other jobs or be in parallel(default is parallel)
+#"build-and-push" is the job ID/ name. it can be whatever but should describe what the job will be doing.
+#jobs are required.must have at least one in every workflow
+#"runs-on:" is the runner selection. as stated prev every job is in its down machine and here you specify what type of machine(ubuntu,windows,macOS,...).required
+#every job will start on clean machine so up to you to setup environment.also nothing persists between jobs unless you upload artifacts
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    #"steps:" defines a sequence of actions that run in order inside the job(required since a jobs without steps does nothing)
+    #"steps" can either be 'uses'(prebuilt actions) or "run" (execute custome shell command)
+    steps:
+      #1.checkout code --practically required since it clones your repository into the runner(the VM) and without it your code doesnt exist on the runner
+      #uses a prebuilt action and uses version 4 . you can find actions on marketplace of github. it will tell specifications of using that action
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+      #2. setup node(for linting/tests)-install node js version 18 on runner using prebuild action using version 4. "with" passes input into action
+      #optional but required to run Node commands within the runner.
+      - name: setup node.js 
+        uses: actions/setup-node@v4 
+        with: 
+          node-version: 18 
+      #3 backend install + lint-required if nodejs has dependencies.this custom run command will "cd backend" and run "npm ci" to download dependecies 
+      - name: Install backend dependencies
+        working-directory: backend
+        run: npm ci 
+      #after downloading dependencies go ahead and lint 
+      - name: Lint backend
+        working-directory: backend
+        run: npm run lint --if-present
+        #4frontend install and lint-required if frontend has dependencies,...
+      - name: install frontend dependencies
+        working-directory: frontend 
+        run: npm ci 
+
+      - name: Lint frontend 
+        working-directory: frontend 
+        run: npm run lint --if-present
+        #5.Log in to docker hub --self explanatory
+      - name: Docker Login
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+
+      #6. build and push backend image--see action repo to see what parameters it takes in
+      #at the end it creates two tags.  one uses "latest" and the other uses unique commit based tag.
+      - name: build and push backend image
+        uses: docker/build-push-action@v5 
+        with:
+          context: ./backend
+          push: true
+          tags: | 
+            michaelriv/test1-backend:latest 
+            michaelriv/test1-backend:${{ github.sha }}
+
+      #7. build and push frontend image
+      - name: build and push frontend image
+        uses: docker/build-push-action@v5 
+        with:
+          context: ./frontend 
+          push: true 
+          tags: | 
+            michaelriv/test1-frontend:latest
+            michaelriv/test1-frontend:${{ github.sha }}
+
+
+#if no registry, it defaults to docker.io(dockerhub)
+#[registry]/[namespace]/[repository]:[tag]
+
+
+
+#NOTE: you have to understand your environment before trying to write yaml file.
