@@ -1,0 +1,29 @@
+{
+	"servers": {
+		"my-mcp-server-0f678479": {
+			"type": "stdio",
+			"command": "docker",
+			"args": [
+				"run",
+				"-i",
+				"--rm",
+				"-e",
+				"GITHUB_PERSONAL_ACCESS_TOKEN",
+				"ghcr.io/github/github-mcp-server"
+			]
+		},
+		"my-mcp-server-34f626cf": {
+			"type": "stdio",
+			"command": "docker",
+			"args": [
+				"run",
+				"-i",
+				"--rm",
+				"-e",
+				"GITHUB_PERSONAL_ACCESS_TOKEN=<..>",
+				"ghcr.io/github/github-mcp-server"
+			]
+		}
+	},
+	"inputs": []
+}
