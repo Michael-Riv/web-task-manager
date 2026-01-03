@@ -10,6 +10,7 @@ on:
   push:
     branches:
     - main
+  workflow_dispatch:
 #a job in the workfow,a workflow can have many jobs,each job runs in its own machine. jobs can depend on other jobs or be in parallel(default is parallel)
 #"build-and-push" is the job ID/ name. it can be whatever but should describe what the job will be doing.
 #jobs are required.must have at least one in every workflow
