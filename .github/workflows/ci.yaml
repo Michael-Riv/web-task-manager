@@ -64,8 +64,8 @@ jobs:
           context: ./backend
           push: true
           tags: | 
-            michaelriv/test1-backend:latest 
-            michaelriv/test1-backend:${{ github.sha }}
+            michaelriveria70/test1-backend:latest 
+            michaelriveria70/test1-backend:${{ github.sha }}
 
       #7. build and push frontend image
       - name: build and push frontend image
@@ -74,8 +74,8 @@ jobs:
           context: ./frontend 
           push: true 
           tags: | 
-            michaelriv/test1-frontend:latest
-            michaelriv/test1-frontend:${{ github.sha }}
+            michaelriveria70/test1-frontend:latest
+            michaelriveria70/test1-frontend:${{ github.sha }}
 
 
 #if no registry, it defaults to docker.io(dockerhub)
